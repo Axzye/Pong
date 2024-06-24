@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=3 uid="uid://j4kdhda7lyxe"]
+
+[ext_resource type="Script" path="res://scripts/Game.gd" id="1_e3ic2"]
+[ext_resource type="Script" path="res://scripts/Ball.gd" id="2_lrjmt"]
+[ext_resource type="Texture2D" uid="uid://c3d4u7ded4ves" path="res://sprites/background 1.png" id="2_lvoce"]
+[ext_resource type="Script" path="res://scripts/Background.gd" id="2_rpwjm"]
+[ext_resource type="Texture2D" uid="uid://ume6udkeyhgh" path="res://sprites/background 2.png" id="3_1ryfh"]
+[ext_resource type="Texture2D" uid="uid://c3p7cvgpkap4t" path="res://sprites/paddle p1.png" id="4_03nxu"]
+[ext_resource type="Script" path="res://scripts/Paddle.gd" id="4_hj20f"]
+[ext_resource type="Texture2D" uid="uid://b8qy7qdlqhkfg" path="res://sprites/ball.png" id="5_j7prk"]
+[ext_resource type="Texture2D" uid="uid://cf2m8ym0r4tk1" path="res://sprites/paddle p2.png" id="6_tj228"]
+[ext_resource type="AudioStream" uid="uid://bidlprkpqjsu4" path="res://sounds/p1 hit.wav" id="7_tyb5q"]
+[ext_resource type="Texture2D" uid="uid://ritnou67iged" path="res://sprites/ball inside.png" id="9_20lei"]
+[ext_resource type="AudioStream" uid="uid://dhm1ejmcx4nqm" path="res://sounds/p2 hit.wav" id="9_832k8"]
+[ext_resource type="AudioStream" uid="uid://n5wt2mrtauf8" path="res://sounds/side hit.wav" id="13_ojb5h"]
+[ext_resource type="AudioStream" uid="uid://ctdhq1pbd0a61" path="res://sounds/score.wav" id="14_27qgk"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_e3ic2")
+
+[node name="Back1" type="Node2D" parent="."]
+script = ExtResource("2_rpwjm")
+factor = 0.9
+
+[node name="Sprite2D" type="Sprite2D" parent="Back1"]
+modulate = Color(1, 1, 1, 0.392157)
+texture_repeat = 2
+texture = ExtResource("2_lvoce")
+region_enabled = true
+region_rect = Rect2(0, 0, 10000, 10000)
+
+[node name="Back2" type="Node2D" parent="."]
+script = ExtResource("2_rpwjm")
+factor = 0.8
+
+[node name="Sprite2D" type="Sprite2D" parent="Back2"]
+modulate = Color(1, 1, 1, 0.0784314)
+texture_repeat = 2
+texture = ExtResource("3_1ryfh")
+region_enabled = true
+region_rect = Rect2(0, 0, 10000, 10000)
+
+[node name="P1" type="Node2D" parent="."]
+script = ExtResource("4_hj20f")
+player = true
+size = Vector2(8, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="P1"]
+texture = ExtResource("4_03nxu")
+offset = Vector2(4, 0)
+
+[node name="Hit" type="AudioStreamPlayer" parent="P1"]
+stream = ExtResource("7_tyb5q")
+volume_db = -10.0
+
+[node name="P2" type="Node2D" parent="."]
+position = Vector2(600, 0)
+script = ExtResource("4_hj20f")
+size = Vector2(8, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="P2"]
+texture = ExtResource("6_tj228")
+offset = Vector2(-4, 0)
+
+[node name="Hit" type="AudioStreamPlayer" parent="P2"]
+stream = ExtResource("9_832k8")
+volume_db = -10.0
+
+[node name="Ball" type="Node2D" parent="."]
+position = Vector2(300, 0)
+script = ExtResource("2_lrjmt")
+size = Vector2(20, 20)
+
+[node name="Inside" type="Sprite2D" parent="Ball"]
+texture = ExtResource("9_20lei")
+
+[node name="Outside" type="Sprite2D" parent="Ball"]
+texture = ExtResource("5_j7prk")
+
+[node name="Hit" type="AudioStreamPlayer" parent="Ball"]
+stream = ExtResource("13_ojb5h")
+volume_db = -10.0
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Score" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_27qgk")
+volume_db = -10.0
